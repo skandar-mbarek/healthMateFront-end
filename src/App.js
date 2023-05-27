@@ -1,13 +1,14 @@
 import Router from "./navigations/Router";
 import AuthProvider from "./context/AuthContext";
-
-
+import { SnackbarProvider } from "notistack";
 
 function App() {
   return (
-    <AuthProvider>
-      <Router/>
-    </AuthProvider>
+    <SnackbarProvider maxSnack={10}>
+      <AuthProvider>
+        <Router />
+      </AuthProvider>
+    </SnackbarProvider>
   );
 }
 
