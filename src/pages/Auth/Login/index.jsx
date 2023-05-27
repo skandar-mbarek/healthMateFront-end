@@ -7,6 +7,7 @@ import Button from '@mui/material/Button';
 import { Form } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../../components/Header';
+import { GUESTPATHS } from '../../../navigations/paths';
 
 
 
@@ -71,7 +72,7 @@ export default function Login() {
           <Link href="#" >Forgot password ?</Link>
         </Typography>
         <Typography>Do you have an account ?
-          <Link href="#" >Sign Up</Link>
+          <Link href={"/auth/"+GUESTPATHS.register} >Sign Up</Link>
         </Typography>
         </Form>
       </Paper>

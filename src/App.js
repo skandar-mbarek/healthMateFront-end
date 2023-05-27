@@ -1,10 +1,13 @@
 import Router from "./navigations/Router";
+import AuthProvider from "./context/AuthContext";
 
 
 
 function App() {
   return (
-    <Router/>
+    <AuthProvider>
+      <Router/>
+    </AuthProvider>
   );
 }
 
