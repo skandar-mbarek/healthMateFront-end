@@ -23,7 +23,7 @@ import {  useSnackbar } from 'notistack';
 
 function Register() {
   const { enqueueSnackbar } = useSnackbar();
-  const {login}=useAuthContext();
+  const {register}=useAuthContext();
   const paperStyle = { padding: "30px 20px", width: 500, margin: "20px auto" };
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#6b8ebf" };
@@ -57,7 +57,7 @@ function Register() {
     e.preventDefault()
     const onSuccess=()=>{ handleClickVariant("OK","success")}
     const onFail=(message)=>{ handleClickVariant(message,"error")}
-    login(userFields,onSuccess,onFail)
+    register(userFields,onSuccess,onFail)
   
     
 

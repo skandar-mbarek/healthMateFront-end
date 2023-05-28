@@ -8,6 +8,7 @@ import { Form } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../../../components/Header';
 import { GUESTPATHS } from '../../../navigations/paths';
+import { useAuthContext } from '../../../context/AuthContext';
 
 
 
@@ -17,33 +18,23 @@ export default function Login() {
   const btnStyle = {margin :'8px 0'}
   const textFildStyle={margin:'4px 0'}
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
+  const [loginForm, setLoginForm] = useState({email:"",password:""});
+  const {login}=useAuthContext();
   
-    axios.post('http://localhost:8080/api/auth/authenticate', {
-      email: email,
-      password: password
+
+  const updateForm = (data)=>{
+    setLoginForm({
+      ...loginForm,
+      ...data
     })
-    .then(response => {
-      const token = response.data.token;
-      localStorage.setItem('token', token);
-      // Redirect or update UI based on successful login
-    })
-    .catch(error => {
-      console.log("l3asba")
-    });
-  };
+   
+  }
+  const onLogin = ()=>{
+
+    login(loginForm,null,null)
+  }
+
+  
 
   return (
     
@@ -55,9 +46,9 @@ export default function Login() {
           <h2>Sign In</h2>
         </Grid>
 
-        <Form onSubmit={handleFormSubmit}>
-        <TextField label='Email' placeholder='Enter email' value={email} onChange={handleEmailChange} style={textFildStyle} type='email' fullWidth required/>
-        <TextField label='Password' placeholder='Enter Pasword' value={password} onChange={handlePasswordChange} style={textFildStyle} type='password' fullWidth required/>
+        <Form >
+        <TextField label='Email' placeholder='Enter email'  onChange={(e)=>updateForm({email:e.target.value})} style={textFildStyle} type='email' fullWidth required/>
+        <TextField label='Password' placeholder='Enter Pasword'  onChange={(e)=>updateForm({password:e.target.value})} style={textFildStyle} type='password' fullWidth required/>
         <FormControlLabel
           control = {
             <Checkbox
@@ -67,7 +58,7 @@ export default function Login() {
           }
           label="Remember me"
         />
-        <Button variant='contained' type='submit' color='primary' style={btnStyle} fullWidth>Sign In</Button>
+        <Button variant='contained' type='submit' color='primary' onClick={onLogin}  style={btnStyle} fullWidth>Sign In</Button>
         <Typography>
           <Link href="#" >Forgot password ?</Link>
         </Typography>
